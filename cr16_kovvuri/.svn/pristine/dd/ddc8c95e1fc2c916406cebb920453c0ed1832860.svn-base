@@ -1,0 +1,22 @@
+#ifndef TREE_H
+#define TREE_H
+# include <stdio.h>
+# include <stdlib.h>
+
+struct node {
+	int key;
+	struct node *right;
+	struct node *left;
+};
+
+
+void PrintInorder (struct node*);
+struct node* bst_insert (struct node*, int);
+struct node* bst_delete_node (struct node*, int); 
+void PrintPreorder (struct node*);
+void PrintPostorder (struct node*);
+void PrintLevelorder (struct node*, int);
+void Printonelevel (struct node*, int);
+int height (struct node*);
+int myatoi (char*);
+#endif

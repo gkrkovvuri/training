@@ -1,0 +1,340 @@
+#include <stdio.h>
+
+void showbits (int num)                                                         
+{                                                                               
+    int i;                                                                      
+                                                                                
+    for (i = (sizeof (int)* 8 - 1); i >= 0; i--) {                              
+      printf("%d",(num >> i) & 1U);                                             
+     }                                                                          
+                                                                                
+    printf("\n");                                                               
+}      
+/* Experiment :1*/
+#if 0
+int bit_swap (int n,int s,int d )
+{
+	
+  	int src_bit;
+    int des_bit;
+    int key = 1;
+
+    
+	src_bit = (n >> (s-1)) & key;                                                     
+    	
+	src_bit = (src_bit << (d-1));                                                   
+    
+	des_bit = (n>> (d-1)) & key;                                                     
+    
+	des_bit = (des_bit << (s-1));                                                   
+    
+	n = n & ( ~(key << (s-1)));                                                        
+    
+	n = n & (~ (key << (d-1)));                                                        
+    
+	n = n | src_bit;                                                                
+    
+	n = n | des_bit; 
+    
+    return n;
+
+
+}
+
+
+int main (void)
+{
+    int n;
+    int s;
+    int d;
+   
+    printf("enter the number :");
+    scanf("%d",&n);
+    printf("\nenter the source bit postion:");
+    scanf("%d",&s);
+    printf("\n enter the destination bit postion:");
+    scanf("%d",&d);
+    printf("\nbinary representation before swapping:\n");
+    showbits(n);
+    
+	n = bit_swap (n,s,d);
+    
+	printf("\nbinary representation after swapping:\n");
+    showbits(n);
+    return 0;
+
+
+}
+#endif
+
+ /* experiment :2 Given the bit position s in number snum and the bit position 
+      d in number dnum, swap bit values between s and d.*/
+#if 0
+                                                     
+int main (void)
+{
+    int snum;
+    int dnum;
+    int s;
+    int d;
+    int src_bit;                                                                
+    int des_bit;                                                                
+    int key = 1;    
+    
+    printf("enter the source number :");
+    scanf("%d",&snum);
+    printf("\n enter the destination number");
+    scanf("%d",&dnum);
+    printf("\nenter the source bit postion");
+    scanf("%d",&s);
+    printf("\n enter the destination bit postion");
+    scanf("%d",&d);
+    printf("\nbinary representation of source number before swapping:\n");
+    showbits(snum);
+    printf("\nbinary representation of destination number before swapping:\n");
+    showbits(dnum);
+    
+    src_bit = (snum >> (s-1)) & key;                                                  
+    
+	src_bit = (src_bit << (d-1));                                                   
+    
+	des_bit = (dnum >> (d-1)) & key;                                                  
+    
+	des_bit = (des_bit << (s-1));                                                   
+    
+	snum = snum & (~(key << (s-1)));                                                  
+    
+	dnum = dnum & (~(key << (d-1)));                                                  
+    
+	dnum = dnum | src_bit;                                                          
+    
+    snum = snum | des_bit; 
+    
+    printf ("\nbinary representation of source number after swapping:\n");
+    showbits (snum);
+    printf ("\nbinary representation of destination number before swapping:\n");
+    showbits (dnum);
+    
+    return 0;
+
+
+}
+#endif
+# if 0
+int bit_copy (int snum, int dnum, int n, int s, int d)
+{
+    int des_bits = 0;
+    int bit;
+    int temp;
+    
+    while (n) {
+        des_bits = des_bits << 1;
+        bit = (snum >> (s-1)) & 1;
+        des_bits=des_bits | bit;
+        n--;
+        s--;
+
+     }
+    
+	des_bits = des_bits << (d-1);
+    
+	temp = ~( (~ ( ( ~0)  << (n-1) ) ) << (d-1) );
+    
+	dnum = dnum & temp;
+    
+	dnum = dnum | des_bits;
+    
+    return dnum;
+
+}
+
+
+int main (void)
+{
+    int snum;
+    int dnum;
+    int s;
+    int d;
+    int n;
+    
+    printf ("enter the source number :");
+    scanf ("%d",&snum);
+    printf ("\nenter the destination number");
+    scanf ("%d",&dnum);
+    printf ("\nenter the source bit postion");
+    scanf ("%d",&s);
+    printf ("\nenter the destination bit postion");
+    scanf ("%d",&d);
+    printf ("\nenter the number of bits to be copied");
+    scanf ("%d",&n);
+    printf ("\nbinary representation of source number\n");
+    showbits (snum);
+    printf ("\nbinary representation of destination number\n");
+    showbits (dnum);
+    
+    
+	printf ("\nbinary represntation of dnum after copying\n");                  
+    showbits (bit_copy (snum, dnum, n, s, d ));  
+    return 0;
+
+}
+
+#endif
+
+
+/* Experiment 4:a. Toggle even bit: int even_bit_toggle (int num);
+                b. Toggle odd bit: int odd_bit_toggle (int num);*/
+#if 0
+int even_bit_toggle (int num)
+{
+   	int key = 2;
+	while ( key ){
+       num = num ^ key;
+       key = key << 2;
+    }
+
+    return num;
+
+
+}
+
+int odd_bit_toggle (int num)                                                   
+{                                                                               
+    int key = 1;                                                                
+    while (key) {                                                                           
+       num = num ^ key;                                                           
+       key = key << 2;                                                            
+    }                                                                           
+                                                                                
+    return num;                                                                 
+}       
+
+int main (void)
+{
+	int num;
+	int even_toggle;
+    int odd_toggle;
+
+    printf ("enter the number:");
+    scanf ("%d",&num);
+    printf ("\nthe number before toggling\n");
+    showbits (num);
+    
+	even_toggle = even_bit_toggle (num);
+    
+	odd_toggle = odd_bit_toggle (num);
+
+    printf ("\nthe number after even toggling is:\n");
+    showbits (even_toggle);
+    printf ("\n the number after odd bits toggling is:\n");
+    showbits (odd_toggle);
+
+	return 0;
+
+}
+#endif
+
+# if 1
+
+/* Experiment 5: Write a macro to test and set a bit position in a number.*/
+
+
+#define bit_ts (num, pos); int key = 1; num = num | (key << (pos-1));
+
+int main (void)
+{
+	int num;
+	int pos;
+ 
+    printf ("enter the number");
+	scanf ("%d",&num);
+	printf ("\nenter the postion :");
+	scanf ("%d",&pos);
+ 	printf ("\nnumber before setting is:\n");
+	showbits (num);
+    
+    bit_ts ( num, pos);
+    
+    printf ("\nnumber after setting is:\n");
+    showbits ( num );
+
+    return 0;
+
+}
+
+#endif
+
+#if 1
+int key = 1;
+unsigned int bit;
+
+
+unsigned int left_rotate_bits (unsigned int num)
+{
+ 	
+	bit = (num >> ((sizeof(int) * 8 - 1))) & key;                          
+    num <<= 1;                                                             
+    num = num | bit;  
+
+	return num;
+}
+unsigned int right_rotate_bits (unsigned int num)
+{
+
+	bit = num & key;
+	bit <<= (sizeof(int) * 8 - 1);
+    num >>= 1;
+	num = num | bit;
+
+ 	return num;
+}
+unsigned int left_rotate_n_bits (unsigned int num, int n)
+{
+	while (n) {
+    	                                                    
+    	 bit = (num >> ((sizeof(int) * 8 - 1))) & key;                                                            
+   		 num <<= 1;                                                                  
+   		 num = num | bit; 
+         n--;
+      }
+
+
+	return num;
+}
+unsigned int right_rotate_n_bits (unsigned int num, int n)
+{
+	while (n) {
+		 bit = num & key;                                                            
+   		 bit <<= sizeof(int) * 8 - 1;                                                    
+   		 num >>= 1;                                                                  
+   		 num = num | bit;  
+         n--;  
+    }
+
+	return num;
+}
+int main (void)
+{
+   	unsigned int num;
+	int n;
+
+	printf ("enter the number:");
+	scanf ("%d",&num);
+	printf ("\nnumber of times the bits to be rotated");
+    scanf ("%d",&n);
+	printf ("\nthe number before rotating\n");
+	showbits (num);
+    printf ("\nnumber after right rotating:\n");
+    showbits (right_rotate_bits (num) );
+	printf ("\nnumber after left rotating:\n");                                
+    showbits (left_rotate_bits (num) );   
+ 	printf ("\nnumber after left rotating %d times:\n",n);                                
+    showbits (left_rotate_n_bits (num, n) );
+    printf ("\nnumber after right rotating %d times:\n",n);                                
+    showbits (right_rotate_n_bits (num, n) );   
+
+ 	return 0;
+
+}
+
+#endif

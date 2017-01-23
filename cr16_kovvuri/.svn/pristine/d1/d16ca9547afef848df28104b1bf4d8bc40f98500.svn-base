@@ -1,0 +1,31 @@
+# include <stdio.h>
+# include <stdlib.h>
+
+# define MAX 5
+
+int main (void)
+{
+	int a[MAX];
+	int i;
+	int j;
+	int min;
+
+	printf ("\nEnter the elements");
+
+	for (i = 0; i < MAX; i++ ) {
+		scanf ("%d", &a[i]);
+	}
+	for (i = 1; i < MAX; i++) {
+		min = a[i];
+		for (j = i - 1; j >= 0; j--) {
+			(min < a[j]) ? a[j + 1] = a[j] : break;
+		}
+		a[j + 1] = min;
+	}
+	printf ("\nSorted elements using Insertion sort:\n");
+	for (i = 0; i < MAX; i++ ) {
+		printf ("%d\t", a[i]);
+	}
+	printf ("\n");
+	return 0;
+}

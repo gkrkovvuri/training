@@ -1,0 +1,130 @@
+# include "../header/tree.h"
+
+struct node * temp = NULL;
+struct node* p = NULL;
+
+struct node* bst_insert (struct node* node, int key) // insert for binary search tree
+{ 
+	if (node == NULL) { 							/* if tree is empty return a node */
+		temp = (struct node *) malloc (sizeof (struct node));
+		temp -> key = key;
+		temp -> right = NULL;
+		temp -> left = NULL;
+		return temp;
+	} else if (node -> key >=  key) {               /* Otherwise, recur down the tree */
+		node -> left  = bst_insert (node -> left, key);
+	} else if (node -> key < key) {
+		node -> right = bst_insert (node -> right, key);   
+	}
+	/* return the node pointer */
+	return node;
+}
+
+void PrintInorder (struct node * node)
+{
+	if (node == NULL) {
+		return ;
+	}
+	PrintInorder(node -> left);   //print left node recursively
+	printf ("%d\t", node -> key);
+	PrintInorder (node -> right);  //print right node recursively
+}
+struct node* bst_delete_node (struct node* node, int num)
+{
+	if (node == NULL) {
+		return NULL ;
+	} else if (node -> key > num) {
+			node -> left = bst_delete_node (node -> left, num);
+	} else if (node -> key < num) {
+			node -> right = bst_delete_node (node -> right, num);
+	} else if (node -> key == num) {
+		if (node -> right == NULL && node -> left == NULL) {
+			free (node);
+			return NULL;
+		} else if (node -> right != NULL && node -> left == NULL) {
+			temp = node -> right;
+			free (node);
+			return temp;
+		} else if (node -> right == NULL && node -> left != NULL) {
+			temp = node -> left;
+			free (node);
+			return temp;
+		} else if (node -> right != NULL && node -> left != NULL) {
+				p = node -> right;	
+				temp = node -> right;
+				while (temp -> left ) {
+					temp = temp -> left;
+				}
+				while (p -> left != temp && p -> left != NULL) {
+					p = p -> left;
+				}
+				node -> key = temp -> key;
+				if (p -> left) {
+					p -> left = bst_delete_node (temp, temp -> key);
+				} else {
+					node -> right = p -> right;
+					free(p);
+				}
+		}
+	} 
+	return node;
+}
+void PrintPreorder (struct node* node)
+{
+	if (node == NULL) {
+		return ;
+	}
+	printf ("%d\t", node -> key);
+	PrintPreorder (node -> left);
+	PrintPreorder (node -> right);
+}
+void PrintPostorder (struct node* node)
+{
+	if (node == NULL) {
+		return ;
+	}
+	PrintPostorder (node -> left);
+	PrintPostorder (node -> right);
+	printf ("%d\t", node -> key);
+}
+void PrintLevelorder (struct node* node, int height)  //level order traversal
+{
+	int level;  //variable to represent the level
+
+	for (level = 0; level < height; level++) {
+		Printonelevel (node, level);  // printing level by level in tree
+	}
+}
+void Printonelevel (struct node* node, int level)  //prints elements in given level
+{
+	if (NULL == node) {
+		return;
+	}
+	if (0 == level) {
+		printf ("%d\t", node -> key);
+	} else if (level > 0) {    // recurses upto node is pointing to given level
+		Printonelevel (node -> left, level - 1);
+		Printonelevel (node -> right, level - 1);
+	}
+}
+int height (struct node* node)
+{
+	int lheight;
+	int rheight;
+
+    if (node == NULL)
+        return 0;
+    else
+    {
+        /* compute the height of each subtree */
+		lheight = height(node -> left);
+		rheight = height(node -> right);
+        /* use the larger one */
+		if (lheight > rheight) {
+			return(lheight + 1);
+		} else {
+			return(rheight + 1);
+		}
+    }
+}
+

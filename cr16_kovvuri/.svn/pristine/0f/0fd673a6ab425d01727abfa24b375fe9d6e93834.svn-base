@@ -1,0 +1,33 @@
+# include <stdio.h>                                                             
+# include <stdlib.h>                                                            
+
+# define MAX 5                                                                  
+
+int main (void)                                                                 
+{                                                                               
+	int a[5];                                                                   
+	int i;                                                                      
+	int j;                                                                      
+	int min;                                                                    
+
+	printf ("\nEnter the elements");                                            
+
+	for (i = 0; i < MAX; i++ ) {                                                
+		scanf ("%d", &a[i]);                                                    
+	}                                                                           
+	for (i = MAX; i > 0; i--) {                                             
+		for (j = 0; j < i; j++) {                                         
+			if (a[j] > a[j + 1]) {                                                  
+				a[j] = a[j] + a[j + 1];                                             
+				a[j + 1] = a[j] - a[j + 1];                                             
+				a[j] = a[j] - a[j + 1];                                             
+			}                                                                   
+		}                                                                       
+	}
+	printf ("\nSorted elements using bubble  sort:\n");
+	for (i = 0; i < MAX; i++ ) {
+		printf ("%d\t", a[i]);
+	}
+	printf ("\n");
+	return 0;                                                                   
+}       

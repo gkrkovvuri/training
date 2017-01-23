@@ -1,0 +1,50 @@
+#include <stdio.h>
+#if 0
+struct frame {
+
+	char VPI_1 : 4;
+	char GFC : 4;
+	char VCI_1 : 4;
+	char VPI_2 : 4;
+	char VCI_2 : 8;
+	char CLP : 1;
+	char : 1;
+	char PTI :1;
+	char : 1;
+	char VCI_3 : 4;
+	char HEC : 8;
+} ;
+
+int main (void)
+{
+	
+	printf("size of structure frame is :%d\n", sizeof(struct frame));
+	return 0;
+}
+
+#endif
+
+#if 0
+
+struct Frame {
+	unsigned int Des_port : 16;
+	unsigned int Src_port : 16;
+	unsigned int Seq_num : 32;
+	unsigned int Ack_num : 32;
+	unsigned int Window : 16;
+	unsigned int Code_bits : 6;
+	unsigned int Reserved : 6;
+	unsigned int Header_len: 4;
+	unsigned int Urgent : 16;
+	unsigned int Check_sum : 16;
+
+};
+
+int main()
+{
+	printf ("size of struct frame %d\n",sizeof (struct Frame));
+
+	return 0;
+}
+#endif
+

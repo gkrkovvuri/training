@@ -1,0 +1,1 @@
+cmd_/home/durga/cr16_kovvuri/linux/mm/pg_dump/km_pgdump.ko := ld -r -m elf_i386 -T ../scripts/module-common.lds --build-id  -o /home/durga/cr16_kovvuri/linux/mm/pg_dump/km_pgdump.ko /home/durga/cr16_kovvuri/linux/mm/pg_dump/km_pgdump.o /home/durga/cr16_kovvuri/linux/mm/pg_dump/km_pgdump.mod.o

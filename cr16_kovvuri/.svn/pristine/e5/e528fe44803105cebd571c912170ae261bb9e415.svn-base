@@ -1,0 +1,20 @@
+OBJS =./out/binarytree.o ./out/myatoi.o ./out/func_bst.o
+VPATH = source
+./out/app: ${OBJS}
+	${CC} $(FLAGS) $? -o $@
+#$? -> list of all dependencies of target
+#$@ -> current target 
+./out/func_bst.o: func_bst.c
+	${CC} -c ${FLAGS} $< -o $@
+#$< -> current dependency if is is single
+ifeq ($(FLAGS),-Wall)
+./out/binarytree.o:binarytree.c
+	${CC} -c ${FLAGS} $< -o $@
+else
+./out/binarytree.o:binarytree.c
+	${CC} -c $< -o $@
+endif	
+./out/myatoi.o:myatoi.c 
+	${CC} -c $(FLAGS) $< -o $@
+clean:
+	rm ${OBJS}
